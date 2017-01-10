@@ -111,7 +111,7 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 			final ButtonInterface b = getAButton();
 			b.setColor(buttonColor[i]);
 			b.setX(100+(i*20));
-			b.setY(100+(i*20));
+			b.setY(300);
 			b.setAction(new Action(){
 				public void act(){
 					if(acceptingInput){
