@@ -12,7 +12,7 @@ public class Progress extends Component implements ProgressInterfaceBillyLuy {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
+	@Override 
 	public void update(Graphics2D arg0) {
 		// TODO Auto-generated method stub
 

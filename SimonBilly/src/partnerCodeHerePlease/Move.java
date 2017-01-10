@@ -5,7 +5,7 @@ import simonBilly.MoveInterfaceBillyLuy;
 
 public class Move implements MoveInterfaceBillyLuy {
 
-	public Move() {
+	public Move() { 
 		// TODO Auto-generated constructor stub
 	}
 
