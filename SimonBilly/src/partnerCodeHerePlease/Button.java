@@ -77,7 +77,7 @@ public class Button implements ButtonInterface {
 	@Override
 	public BufferedImage getImage() {
 		// TODO Auto-generated method stub
-		return null;
+		return null; 
 	}
 
 	

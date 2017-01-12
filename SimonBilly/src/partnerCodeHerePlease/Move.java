@@ -14,5 +14,5 @@ public class Move implements MoveInterfaceBillyLuy {
 	@Override
 	public ButtonInterface getButton() {
 		return b;
-	}
+	} 
 }
