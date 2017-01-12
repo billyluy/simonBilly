@@ -157,7 +157,6 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 	 * FOR PARTNER TO FINSISH
 	 */
 	private ProgressInterfaceBillyLuy getProgress() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -165,7 +164,6 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 	 * FOR PARTNER TO FINSISH
 	 */
 	private ButtonInterface getAButton() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

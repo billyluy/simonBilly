@@ -9,7 +9,7 @@ import simonBilly.ButtonInterface;
 public class Button implements ButtonInterface {
 
 	public Button() {
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated method stub
 	}
 
 	@Override

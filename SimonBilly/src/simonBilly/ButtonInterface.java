@@ -7,7 +7,7 @@ import gui.components.Clickable;
 
 public interface ButtonInterface extends Clickable {
 
-	void setColor(Color gray);
+	void setColor(Color color);
 
 	void setX(int i);
 
