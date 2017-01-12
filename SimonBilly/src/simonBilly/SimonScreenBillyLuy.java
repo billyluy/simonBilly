@@ -97,9 +97,6 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 	}
 
 
-	private MoveInterfaceBillyLuy getAMove(ButtonInterface b) {
-		return null;
-	}
 
 	private void addButtons() {
 		int numberOfButtons = 5;
@@ -151,6 +148,12 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * For Partner to complete
+	 */
+	private MoveInterfaceBillyLuy getAMove(ButtonInterface b) {
+		return null;
 	}
 
 	/**
