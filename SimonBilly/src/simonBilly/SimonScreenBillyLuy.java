@@ -7,140 +7,114 @@ import gui.components.Action;
 import gui.components.ClickableScreen;
 import gui.components.TextLabel;
 import gui.components.Visible;
+import partnerCodeHerePlease.Button;
+import partnerCodeHerePlease.Move;
+import partnerCodeHerePlease.Progress;
 
-public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
-	
-	private ProgressInterfaceBillyLuy user;
-	private ArrayList<MoveInterfaceBillyLuy> order;
-	private ButtonInterface[] button;
-	private int round;
-	private boolean acceptingInput;
-	private int orderIndex;
-	private int last;
+public class SimonScreenBillyLuy extends ClickableScreen implements Runnable{
+
 	private TextLabel label;
+	private ButtonInterface[] buttons;
 	private ProgressInterfaceBillyLuy progress;
+	private ArrayList<MoveInterfaceBillyLuy> sequence; 
+	private int roundNumber;
+	private boolean acceptingInput;
+	private int sequenceIndex;
+	private int lastSelected;
 
 	public SimonScreenBillyLuy(int width, int height) {
 		super(width, height);
-		Thread simonStart = new Thread(this);
-		simonStart.start();
-	}
-
-	@Override
-	public void run(){
-	    label.setText("");
-	    nextRound();
-	}
-
-	private void nextRound() {
-		acceptingInput = false;
-		round++;
-		order.add(randomMove());
-		ProgressInterfaceBillyLuy.setRound(round);
-		ProgressInterfaceBillyLuy.setSequenceSize(order.size());
-		changeText("Simon's turn");
-		label.setText("");
-		playSequence();
-		changeText("Your turn");
-		acceptingInput = true;
-		orderIndex = 0;
-	}
-
-	private void playSequence() {
-		ButtonInterface b = null;
-		for(int i =0; i<order.size();i++){
-			if(b != null){
-				b.dim();
-			}
-			//b = ((ButtonInterface)order).getButton();
-			b = order.get(i).getButton();
-			b.highlight();
-			try {
-				Thread.sleep((long)(2000*(2.0/(round+2))));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		b.dim();
+		Thread screen = new Thread(this);
+		screen.start();
 	}
 
 	@Override
 	public void initAllObjects(ArrayList<Visible> viewObjects) {
 		addButtons();
 		progress = getProgress();
-		label = new TextLabel(130,230,300,40," ");
-		order = new ArrayList<MoveInterfaceBillyLuy>();
-		//add 2 moves to start
-		round = 0;
-		last = -1;
-		order.add(randomMove());
-		order.add(randomMove());
+		label = new TextLabel(375,230,300,40,"Let's play Simon!");
+		sequence = new ArrayList<MoveInterfaceBillyLuy>();
+		lastSelected = -1;
+		sequence.add(randomMove());
+		sequence.add(randomMove());
+		roundNumber = 0;
 		viewObjects.add(progress);
 		viewObjects.add(label);
 	}
-	
-	private MoveInterfaceBillyLuy randomMove() {
-		ButtonInterface b;
-		//code that randomly selects a ButtonInterfaceX
-		int rand = (int)(Math.random()*button.length);
-		//if its equal then pick a new
-		while(rand == last){
-			rand = (int) (Math.random()*button.length);
-		}
-		//change the last select into rand
-		last = rand;
-		/**
-		 * FIX LATER
-		 */
-		b = button[rand];
-		return getAMove(b);
-	}
-
-
 
 	private void addButtons() {
-		int numberOfButtons = 5;
-		//colors
-		Color[] buttonColor = {Color.blue, Color.red,Color.black,Color.orange,Color.pink};
-		//place all buttons
-		for(int i =0; i < numberOfButtons; i++){
-			//b is an object that is a button interface
-			final ButtonInterface b = getAButton();
-			b.setColor(buttonColor[i]);
-			b.setX(100+(i*20));
-			b.setY(300);
-			b.setAction(new Action(){
-				public void act(){
-					if(acceptingInput){
-						Thread blink = new Thread(new Runnable(){
-							public void run(){
+		Color[] colors = {Color.BLUE, Color.PINK, Color.RED, Color.GREEN, Color.YELLOW, Color.ORANGE};
+		int[] coordX = {300, 300, 400, 400, 500, 500};
+		int[] coordY = {300, 400, 300, 400, 300, 400};
+		int buttonCount = 6;
+		buttons = new ButtonInterface[buttonCount];
+		for(int i = 0; i < buttonCount; i++ ){
+			buttons[i] = getAButton();
+			buttons[i].setColor(colors[i]);
+			buttons[i].setX(coordX[i]);
+			buttons[i].setY(coordY[i]);
+			final ButtonInterface b = buttons[i];
+			b.dim();
+			buttons[i].setAction(new Action() {
+				public void act() {
+						Thread buttonPress = new Thread(new Runnable() {
+							
+							public void run() {
 								b.highlight();
 								try {
-									Thread.sleep(800);
+									Thread.sleep(500);
 								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								b.dim();
 							}
 						});
-						blink.start();
-						if(b == order.get(orderIndex).getButton()){
-							orderIndex++;
-						}else{
-							ProgressInterfaceBillyLuy.gameOver();
+						buttonPress.start();
+						if(acceptingInput && sequence.get(sequenceIndex).getButton() == b){
+							sequenceIndex++;
+						}else if(acceptingInput){
+							gameOver();
+							return;
 						}
-						if(orderIndex == order.size()){
+						if(sequenceIndex == sequence.size()){
 							Thread nextRound = new Thread(SimonScreenBillyLuy.this);
-							nextRound.start(); 
+							nextRound.start();
 						}
 					}
-				}
+
 			});
-			viewObjects.add(b);
+			viewObjects.add(buttons[i]);
 		}
 	}
-	
+
+	public void gameOver() {
+		ProgressInterfaceBillyLuy.gameOver();
+	}
+
+	public void nextRound() {
+		acceptingInput = false;
+		roundNumber ++;
+		ProgressInterfaceBillyLuy.setRound(roundNumber);
+		sequence.add(randomMove());
+		ProgressInterfaceBillyLuy.setSequenceSize(sequence.size());
+		changeText("Simon's turn");
+		label.setText("");
+		playSequence();
+		changeText("Your turn");
+		label.setText("");
+		acceptingInput = true;
+		sequenceIndex = 0;
+	}
+
+	private MoveInterfaceBillyLuy randomMove() {
+		int select = (int) (Math.random()*buttons.length);
+		while(select == lastSelected){
+			select = (int) (Math.random()*buttons.length);
+		}
+		lastSelected = select;
+		return new Move(buttons[select]);
+	}
+
 	private void changeText(String string) {
 		try{
 			label.setText(string);
@@ -149,24 +123,34 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * For Partner to complete
-	 */
-	private MoveInterfaceBillyLuy getAMove(ButtonInterface b) {
-		return null;
+
+	public void run() {
+		changeText("");
+		nextRound();
 	}
 
-	/**
-	 * FOR PARTNER TO FINSISH
-	 */
-	private ProgressInterfaceBillyLuy getProgress() {
-		return null;
+	private void playSequence() {
+		ButtonInterface b = null;
+		for(int i =0; i<sequence.size();i++){
+			if(b != null){
+				b.dim();
+			}
+			b = sequence.get(i).getButton();
+			b.highlight();
+			try {
+				Thread.sleep((long)(2000*(2.0/(roundNumber+2))));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		b.dim();
 	}
 	
-	/**
-	 * FOR PARTNER TO FINSISH
-	 */
+	private ProgressInterfaceBillyLuy getProgress() {
+		return new Progress();
+	}
+	
 	private ButtonInterface getAButton() {
-		return null;
+		return new Button();
 	}
 }
