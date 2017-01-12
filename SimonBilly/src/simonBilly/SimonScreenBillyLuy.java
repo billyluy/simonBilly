@@ -128,7 +128,7 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 						if(b == order.get(orderIndex).getButton()){
 							orderIndex++;
 						}else{
-							ProgressInterfaceBillyLuy.getOver();
+							ProgressInterfaceBillyLuy.gameOver();
 						}
 						if(orderIndex == order.size()){
 							Thread nextRound = new Thread(SimonScreenBillyLuy.this);
