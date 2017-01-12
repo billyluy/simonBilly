@@ -97,9 +97,6 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 	}
 
 
-	private MoveInterfaceBillyLuy getAMove(ButtonInterface b) {
-		return null;
-	}
 
 	private void addButtons() {
 		int numberOfButtons = 5;
@@ -131,7 +128,7 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 						if(b == order.get(orderIndex).getButton()){
 							orderIndex++;
 						}else{
-							ProgressInterfaceBillyLuy.getOver();
+							ProgressInterfaceBillyLuy.gameOver();
 						}
 						if(orderIndex == order.size()){
 							Thread nextRound = new Thread(SimonScreenBillyLuy.this);
@@ -152,12 +149,17 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * For Partner to complete
+	 */
+	private MoveInterfaceBillyLuy getAMove(ButtonInterface b) {
+		return null;
+	}
 
 	/**
 	 * FOR PARTNER TO FINSISH
 	 */
 	private ProgressInterfaceBillyLuy getProgress() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -165,7 +167,6 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable {
 	 * FOR PARTNER TO FINSISH
 	 */
 	private ButtonInterface getAButton() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

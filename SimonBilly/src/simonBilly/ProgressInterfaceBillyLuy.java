@@ -4,7 +4,7 @@ import gui.components.Visible;
 
 public interface ProgressInterfaceBillyLuy extends Visible {
 
-	static void getOver() {
+	static void gameOver() {
 		// TODO Auto-generated method stub
 		
 	}
