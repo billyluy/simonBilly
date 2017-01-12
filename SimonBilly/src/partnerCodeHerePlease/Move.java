@@ -4,20 +4,15 @@ import simonBilly.ButtonInterface;
 import simonBilly.MoveInterfaceBillyLuy;
 
 public class Move implements MoveInterfaceBillyLuy {
-
-	public Move() { 
-		// TODO Auto-generated constructor stub
+	
+	private ButtonInterface b; 
+	
+	public Move(ButtonInterface b) { 
+		this.b = b;
 	}
 
 	@Override
 	public ButtonInterface getButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return b;
 	}
-	
-	public void update() {
-		// TODO Auto-generated method stub
-
-	}
-
 }
