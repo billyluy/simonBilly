@@ -120,5 +120,5 @@ public class Button implements ButtonInterface {
 	public boolean isAnimate() {
 		// TODO Auto-generated method stub
 		return false;
-	}
+	} 
 }
