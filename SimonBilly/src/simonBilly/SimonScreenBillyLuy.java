@@ -7,6 +7,10 @@ import gui.components.Action;
 import gui.components.ClickableScreen;
 import gui.components.TextLabel;
 import gui.components.Visible;
+import gui.simonGame.ButtonInterface;
+import gui.simonGame.MoveInterfaceBillyLuy;
+import gui.simonGame.ProgressInterfaceBillyLuy;
+import gui.simonGame.SimonScreenBillyLuy;
 import partnerCodeHerePlease.Button;
 import partnerCodeHerePlease.Move;
 import partnerCodeHerePlease.Progress;
@@ -88,15 +92,15 @@ public class SimonScreenBillyLuy extends ClickableScreen implements Runnable{
 	}
 
 	public void gameOver() {
-		ProgressInterfaceBillyLuy.gameOver();
+		progress.gameOver();
 	}
 
 	public void nextRound() {
 		acceptingInput = false;
-		roundNumber ++;
-		ProgressInterfaceBillyLuy.setRound(roundNumber);
+		roundNumber++;
+		progress.setRound(roundNumber);
 		sequence.add(randomMove());
-		ProgressInterfaceBillyLuy.setSequenceSize(sequence.size());
+		progress.setSequenceSize(sequence.size());
 		changeText("Simon's turn");
 		label.setText("");
 		playSequence();

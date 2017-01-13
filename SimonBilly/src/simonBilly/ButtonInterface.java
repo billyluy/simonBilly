@@ -20,8 +20,4 @@ public interface ButtonInterface extends Clickable {
 
 	void dim();
 
-	void update(Graphics2D g);
-
-	
-
 }
